@@ -1,0 +1,55 @@
+{% extends 'app_general/components/base.html' %}
+{% load static %}
+
+{% block site_title %} เมนูทั้งหมด {% endblock %}
+{% block active_foods %}active{% endblock %}
+{% block content %}
+
+<div class="d-flex align-items-center justify-content-center" style="height: 200px;background-color: #228bada4;" >
+    <h1 class="text-light" >เมนูทั้งหมด</h1>
+    
+</div>
+
+<div class="row">
+    {% for food in foods %} 
+        <div class="col-sm-3" >
+            <div class="card m-4"  >
+                
+                <a href="{% url 'food' food.id %}"><img style="height: 200px;" class="card-img-top bg-light object-fit-contain border rounded w-100" src="{% static food.image_relative_url %}" alt="Card image cap"></a>
+                
+
+                <div class="card-body" style="height: 170px;">
+                    <h5 class="card-title"><a href="{% url 'food' food.id %}">{{food.title}}</a></h5>
+                    {% if food.special_price is not None %}
+                        <span>{{ food.special_price|floatformat:'g' }} </span>
+                        <del class="text-secondary">{{ food.price|floatformat:'g' }}</del> บาท
+                    {% else %}
+                        <p class="card-text">{{food.price|floatformat:'g'}} บาท</p>
+                    {% endif %}
+                    {% if food.is_premium %}
+                        <br>
+                        <div class="mt-1">
+                            <p class="h5 bg-warning d-inline p-1">PREMIUM</p>
+                        </div>
+                        
+                        
+                        
+                    {% endif %}
+                    
+                    
+                    <p class="mt-2">โปรโมชั่นถึงวันที่ : {{ food.promotion_end_at|date:'j N Y'}}</p> 
+                    
+                
+                </div>
+                
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+{% endblock %}

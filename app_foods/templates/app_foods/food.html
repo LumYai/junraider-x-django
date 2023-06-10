@@ -1,0 +1,48 @@
+{% extends 'app_general/components/base.html' %}
+{% load static %}
+
+{% block site_title %} {{food.title}} {% endblock %}
+
+{% block content %}
+
+{% if food is not None %}
+    <div class="card my-3" style="height: 500px;">
+        <div class="row g-0 " >
+            <div class="col-md-6 bg-light" >
+                <img src="{% static food.image_relative_url %}" class="object-fit-contain border rounded w-100" style="height: 500px;" alt="Image Description">
+            </div>
+            <div class="col-md-6">
+                <div class="card-body " style="height: 500px;">
+                    <h3 class="card-title ">{{food.title}}</h3>
+                    <hr>
+                    {% if food.special_price is not None %}
+                        <span>{{ food.special_price|floatformat:'g' }} </span>
+                        <del class="text-secondary">{{ food.price|floatformat:'g' }} </del> บาท
+                    {% else %}
+                        <p class="card-text">{{food.price|floatformat:'g'}} บาท</p>
+                    {% endif %}
+                    {% if food.is_premium %}
+                    
+                    <p class="h5 my-1 bg-warning d-flex p-1 justify-content-center align-items-end">PREMIUM</p>
+                    
+                    
+                    {% endif %}
+                    
+                    <p class="my-1">โปรโมชั่นถึงวันที่ {{ food.promotion_emd_at|date:'j N Y'}}</p>
+                    <div class=" h-100 justify-content-center">
+                        <a href="{% url 'subscription' %}" ><button class="btn btn-success " >ลงทะเบียนเมนู</button></a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <p class="h1 bg-warning ">ไม่พบเมนูนี้</p>
+{% endif %}
+    
+
+{% endblock %}
+
+

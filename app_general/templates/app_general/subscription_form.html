@@ -1,0 +1,64 @@
+{% extends 'app_general/components/base.html' %}
+
+{% block site_title %} ลงทะเบียนโปรโมชั่น {% endblock %}
+
+{% block content %}
+
+<div class="bg-primary d-flex align-items-center justify-content-center" style="height: 200px;">
+    <h1 class="text-light" >ฟอร์ม</h1>
+</div>
+<div>
+    <h2>ลงทะเบียนรับโปรโมชั่น</h2>
+    <p>กรุณาใส่ข้อมูล</p>
+    <form action="{% url 'subscription' %}" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="mt-2">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            <div class="text-danger h5">
+                {{ form.name.errors }}
+            </div>
+            
+            
+        </div>
+        <div class="mt-2">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            <div class="text-danger h5">
+                {{ form.email.errors }}
+            </div>
+        
+        </div>
+        <div class="mt-2 ">
+            {{ form.food_set.label_tag }}
+            {{ form.food_set }}
+            <div class="text-danger h5">
+                {{ form.food_set.errors }}
+            </div>
+        
+        </div>
+        <div class="mt-2">
+            <label>อ่านข้อตกลงและเงื่อนไข</label>
+            <br>
+            <label>
+                {{ form.accepted }}
+                {{ form.accepted.label }}
+            </label>
+            <div class="text-danger h5">
+                {{ form.accepted.label.errors }}
+            </div>
+            
+        </div>
+        
+        <div>
+            <button class="btn btn-success" type="submit">ลงทะเบียนโปรโมชั่น</button>
+        </div>
+        <p>Hello {{ food }}</p>
+        
+
+    </form>
+</div>
+
+
+{% endblock %}
